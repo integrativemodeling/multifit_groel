@@ -18,13 +18,13 @@ sol_model_fn = ["model.bottom", "model.top"]
 symm_deg = 7
 
 # generate a surface file of the model
-command = ["cnmultifit.py", "surface", model_fn]
+command = ["cnmultifit", "surface", model_fn]
 print " ".join(command)
 subprocess.call(command)
 
 # generate parameter files for the two halves
 for i in range(2):
-    command = ["cnmultifit.py", "param", "-o", output_fn[i], "-p", param_fn[i],
+    command = ["cnmultifit", "param", "-o", output_fn[i], "-p", param_fn[i],
                "-m", sol_model_fn[i], "--", str(symm_deg), model_fn,
                dens_fn[i], str(resolution), str(spacing),
                str(threshold), str(map_origin_x[i]),
@@ -34,7 +34,7 @@ for i in range(2):
 
 # run the modeling procedure
 for i in range(2):
-    command = ["cnmultifit.py", "build", param_fn[i]]
+    command = ["cnmultifit", "build", param_fn[i]]
     print " ".join(command)
     subprocess.call(command)
 
