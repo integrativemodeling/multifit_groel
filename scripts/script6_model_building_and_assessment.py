@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from modeller import *
 from modeller.automodel import *
 from modeller.scripts import complete_pdb
@@ -50,7 +51,7 @@ dmap.get_header_writable().set_resolution(11.5)
 imp_mdl=IMP.Model()
 rb_refiner=IMP.core.LeavesRefiner(IMP.atom.Hierarchy.get_traits())
 for mdl_fn in truncated_models_fn:
-    print "====fitting model",mdl_fn
+    print("====fitting model",mdl_fn)
     #load the template
     mh=IMP.atom.read_pdb(mdl_fn,imp_mdl)
     IMP.atom.add_radii(mh)

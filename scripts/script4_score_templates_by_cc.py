@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import IMP.em
 import IMP.atom
 import IMP.multifit
@@ -15,11 +16,11 @@ for line in open(templates_file):
     if int(s[0])==1:
         continue
     if not(int(s[4])-int(s[3])>400):
-        print "Not including:",s[0],s[1]
+        print("Not including:",s[0],s[1])
         continue
     templates.append([s[1][:4],s[1][-1]])
     seq_ids.append(s[10])
-print "number of seq:",len(seq_ids)
+print("number of seq:",len(seq_ids))
 templates_dir="data/templates/"
 #--- load the target density map
 dmap=IMP.em.read_map("output/groel_subunit_11.mrc",IMP.em.MRCReaderWriter())
@@ -34,7 +35,7 @@ dens_threshold=0.02
 #--- iterate over the templates and fit each of them
 dmap.show()
 for i,t in enumerate(templates):
-    print "fitting template "+t[0]+t[1]
+    print("fitting template "+t[0]+t[1])
     #load the template
     mh=IMP.atom.read_pdb(templates_dir+t[0]+".pdb",mdl)
     #get the right chain
@@ -64,8 +65,8 @@ template_fit_sols=sorted(template_fit_sols,key=lambda fit: fit[2],reverse=True)
 #--- write the best fitting score for each template
 output=open("output/score_templates_by_cc.log","w")
 output.write('%(a)-12s%(b)-12s%(c)-12s%(d)-30s\n'%{'a':'name','b':'seq id','c':'cc score','d':'transformation'})
-print len(template_fit_sols[0])
-print template_fit_sols[0]
+print(len(template_fit_sols[0]))
+print(template_fit_sols[0])
 for i,trans,score,t in template_fit_sols:
     rot=trans.get_rotation().get_quaternion()
     v=trans.get_translation()

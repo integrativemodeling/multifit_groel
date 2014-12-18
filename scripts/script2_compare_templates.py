@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 from modeller import *
 
 env = environ()
@@ -17,9 +18,9 @@ for line in open(templates_file):
     if int(s[9])>400:
         templates.append([s[1][:4],s[1][-1]])
     else:
-        print "Not including:",s[0],s[1]
+        print("Not including:",s[0],s[1])
 for (pdb, chain) in templates:
-    print pdb
+    print(pdb)
     m = model(env, file="data/templates/"+pdb, model_segment=('FIRST:'+chain, 'LAST:'+chain))
     aln.append_model(m, atom_files=pdb, align_codes=pdb+chain)
 aln.malign()

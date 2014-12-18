@@ -5,6 +5,7 @@
 #
 #  =======================  Maya Topf, 4 Dec 2007 =============================
 
+from __future__ import print_function
 from modeller import *
 from modeller.automodel import refine
 from modeller.scripts import complete_pdb
@@ -104,7 +105,7 @@ class opt_md:
             if mobile:
                 mobile_atoms.append(n)
 #        print "mobile atom ..",n
-        print "number of mobile atoms ..",len(mobile_atoms)
+        print("number of mobile atoms ..",len(mobile_atoms))
         sel_mobile=selection(mobile_atoms) # selection of mobile residues
 
         ###################### RESTRAINTS FOR MOBILE ATOMS ############
@@ -143,7 +144,7 @@ class opt_md:
                     include_it=False
                     break
             if(include_it):
-                print "Considering rigid body ...",n
+                print("Considering rigid body ...",n)
 #        for at in n:
 #          print "atom ...",at
                 mdl.restraints.rigid_bodies.append(rigid_body(n))
@@ -153,7 +154,7 @@ class opt_md:
         mdl.restraints.write(file=self.code+'.rsr')
 
         ###################### MOLECULAR DYNAMICS ANNEALING ################
-        print "MD annealing"
+        print("MD annealing")
         scal_for_annealing = physical.values(default=1.0, em_density=10000)
         cap=0.39
         timestep=5.0
@@ -184,8 +185,8 @@ class opt_md:
                     # print progress
                     scal = physical.values(default=0.0, em_density=1.0)
                     (molpdf, terms) = sel_all.energy(schedule_scale=scal)
-                    print "HEATING: iteration number= %s  step= %d %d  "\
-                    "temp= %d  EM score= %.3f" %(a,icount,its,int(temp),-molpdf)
+                    print("HEATING: iteration number= %s  step= %d %d  "\
+                    "temp= %d  EM score= %.3f" %(a,icount,its,int(temp),-molpdf))
 
                     icount=icount+equil_its
                 init_vel=False
@@ -209,8 +210,8 @@ class opt_md:
 
                     scal = physical.values(default=0.0, em_density=1.0)
                     (molpdf, terms) = sel_all.energy(schedule_scale=scal)
-                    print "COOLING: iteration number= %s  step= %d %d " \
-                    "temp= %d  EM score= %.3f" %(a,icount,its,int(temp),-molpdf)
+                    print("COOLING: iteration number= %s  step= %d %d " \
+                    "temp= %d  EM score= %.3f" %(a,icount,its,int(temp),-molpdf))
 
                     icount=icount+equil_its
 
@@ -220,13 +221,13 @@ class opt_md:
 
         trc_file.close()
 
-        print "MD FINAL: step= %d: energy all (with scaling 1:10000)" % icount
+        print("MD FINAL: step= %d: energy all (with scaling 1:10000)" % icount)
         eval = sel_all.energy(schedule_scale=scal_for_annealing)
 
         ################## final minimization with and without CC restraints.
         ################## Optimize all atoms for refinement
         CG = conjugate_gradients()
-        print " final conjugate_gradients"
+        print(" final conjugate_gradients")
 
         CG.optimize(sel_all, output='REPORT', max_iterations=200,
                 schedule_scale=scal_for_annealing)

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import subprocess
 import os
 
@@ -19,7 +20,7 @@ symm_deg = 7
 
 # generate a surface file of the model
 command = ["cnmultifit", "surface", model_fn]
-print " ".join(command)
+print(" ".join(command))
 subprocess.call(command)
 
 # generate parameter files for the two halves
@@ -29,13 +30,13 @@ for i in range(2):
                dens_fn[i], str(resolution), str(spacing),
                str(threshold), str(map_origin_x[i]),
                str(map_origin_y[i]), str(map_origin_z[i])]
-    print " ".join(command)
+    print(" ".join(command))
     subprocess.call(command)
 
 # run the modeling procedure
 for i in range(2):
     command = ["cnmultifit", "build", param_fn[i]]
-    print " ".join(command)
+    print(" ".join(command))
     subprocess.call(command)
 
 # Delete the surface file

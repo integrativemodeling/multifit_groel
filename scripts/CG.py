@@ -5,6 +5,7 @@
 #
 #  =======================  Maya Topf, 4 Dec 2007 =============================
 
+from __future__ import print_function
 from modeller import *
 from modeller.automodel import refine
 from modeller.scripts import complete_pdb
@@ -107,7 +108,7 @@ class opt_cg:
             if mobile:
                 mobile_atoms.append(n)
 #        print "mobile atom ..",n
-        print "number of mobile atoms ..",len(mobile_atoms)
+        print("number of mobile atoms ..",len(mobile_atoms))
         sel_mobile=selection(mobile_atoms) # selection of mobile residues
 
         ###################### RESTRAINTS FOR MOBILE ATOMS ###############
@@ -145,7 +146,7 @@ class opt_cg:
                     include_it=False
                     break
             if(include_it):
-                print "Considering rigid body ...",n
+                print("Considering rigid body ...",n)
 #        for at in n:
 #          print "atom ...",at
                 mdl.restraints.rigid_bodies.append(rigid_body(n))
@@ -169,7 +170,7 @@ class opt_cg:
             if(flexible):
 #        print "flexible atom ...",n
                 flexible_atoms.append(n)
-        print "number of flexible atoms ...",len(flexible_atoms)
+        print("number of flexible atoms ...",len(flexible_atoms))
         sel_flex=selection(flexible_atoms)
         sel_flex.randomize_xyz(deviation=1.0)
         # randomize the rigid bodies if requested
@@ -192,8 +193,8 @@ class opt_cg:
         mdl.write(file=self.code+'_rand.pdb')
 
         ###################### CG MINIMIZATION ######################
-        print "Conjugate_gradients"
-        print "directory num %s" % self.run_num
+        print("Conjugate_gradients")
+        print("directory num %s" % self.run_num)
         trc_step=5
         trc_file = open('CG'+self.run_num+'.trc', "a")
         i=0
@@ -209,10 +210,10 @@ class opt_cg:
         trc_file.close()
 
         ###################### PRINT FINAL ENERGY AND CCC ######################
-        print "final energy all "
+        print("final energy all ")
         scal = physical.values(default=1.0, em_density=10000)
         eval = sel_all.energy(schedule_scale=scal)
-        print "final cc "
+        print("final cc ")
         scal = physical.values(default=0.0, em_density=1.0)
         eval = sel_all.energy(schedule_scale=scal)
         # Write final model

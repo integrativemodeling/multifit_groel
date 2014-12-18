@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import IMP.atom
 import numpy
 
@@ -22,21 +23,21 @@ for i in range(num_mols):
         all_rmsd[j][i]=rmsd
 #print header line
 for i in range(num_mols+1):
-    print '%(a)05d'%{'a':i},
-print ""
+    print('%(a)05d'%{'a':i}, end=' ')
+print("")
 #print rmsds
 for i in range(num_mols):
-    print '%(a)05d'%{'a':i+1},
+    print('%(a)05d'%{'a':i+1}, end=' ')
     for j in range(num_mols):
         if i<j:
             k1=i; k2=j
         else:
             k1=j; k2=i;
-        print '%(a).3f'%{'a':all_rmsd[k1][k2]},
-    print ""
-print ""
-print ""
-print "max rmsd:", max(numpy.reshape(all_rmsd,num_mols*num_mols))
+        print('%(a).3f'%{'a':all_rmsd[k1][k2]}, end=' ')
+    print("")
+print("")
+print("")
+print("max rmsd:", max(numpy.reshape(all_rmsd,num_mols*num_mols)))
 for i in range(num_mols):
     all_rmsd[i][i]=1000
-print "min rmsd:", min(numpy.reshape(all_rmsd,num_mols*num_mols))
+print("min rmsd:", min(numpy.reshape(all_rmsd,num_mols*num_mols)))
