@@ -1,5 +1,3 @@
-# GroEL
-
 These scripts demonstrate the use of IMP,
 [MODELLER](http://salilab.org/modeller/) and
 [Chimera](http://www.cgl.ucsf.edu/chimera/) in the modeling of the
