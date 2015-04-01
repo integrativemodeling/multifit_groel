@@ -1,3 +1,7 @@
 title: GroEL
 tags: [EM density map, MODELLER, MultiFit]
 pmid: 22323229
+prereqs: [modeller]
+test:
+    runtime: 10h
+    build: debug
