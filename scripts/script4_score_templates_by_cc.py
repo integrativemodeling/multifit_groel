@@ -4,7 +4,7 @@ from __future__ import print_function
 import IMP.em
 import IMP.atom
 import IMP.multifit
-IMP.base.set_log_level(IMP.base.NONE)
+IMP.set_log_level(IMP.NONE)
 #--- parse the templates file
 templates_file="output/build_profile.prf"
 templates=[]
