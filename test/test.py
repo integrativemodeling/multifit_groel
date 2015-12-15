@@ -48,7 +48,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(len(m.atoms), 14)
         self.assertEqual(len(m.residues), 14)
         # load_configuration file should load all 14 subunits, and set level
-        wc = len(open('output/load_configuration.cmd').readlines())
+        with open('output/load_configuration.cmd') as fh:
+            wc = len(fh.readlines())
         self.assertEqual(wc, 15)
         os.unlink('output/load_configuration.cmd')
         os.unlink('output/groel_segments_center.pdb')
@@ -73,7 +74,7 @@ class Tests(unittest.TestCase):
         for code in long_templates:
             fname = 'output/%s_fitted.pdb' % code
             m = modeller.model(e, file=fname)
-            self.assert_(len(m.atoms) > 10)
+            self.assertGreater(len(m.atoms), 10)
             os.unlink(fname)
         os.unlink('output/score_templates_by_cc.log')
 
