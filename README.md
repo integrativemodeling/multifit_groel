@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.46596.svg)](http://dx.doi.org/10.5281/zenodo.46596)
+
 These scripts demonstrate the use of IMP,
 [MODELLER](http://salilab.org/modeller/) and
 [Chimera](http://www.cgl.ucsf.edu/chimera/) in the modeling of the
