@@ -74,7 +74,7 @@ class Tests(unittest.TestCase):
         for code in long_templates:
             fname = 'output/%s_fitted.pdb' % code
             m = modeller.model(e, file=fname)
-            self.assertGreater(len(m.atoms), 10)
+            self.assertTrue(len(m.atoms) > 10)
             os.unlink(fname)
         os.unlink('output/score_templates_by_cc.log')
 
