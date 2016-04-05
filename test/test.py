@@ -163,7 +163,7 @@ class Tests(unittest.TestCase):
                 a.append_model(m, align_codes='model')
                 rms.append(sel.superpose(m, a).rms)
                 os.unlink(fname)
-            self.assert_(min(rms) < 10.0)
+            self.assertTrue(min(rms) < 10.0)
         os.unlink('output/intermediate_asmb_sols.out')
         for side in ('top', 'bottom'):
             os.unlink('output/multifit.%s.output' % side)
