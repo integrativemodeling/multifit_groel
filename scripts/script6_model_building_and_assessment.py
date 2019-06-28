@@ -49,13 +49,13 @@ for mdl_fn in truncated_models_fn:
 dmap=IMP.em.read_map("groel_subunit_11.mrc",IMP.em.MRCReaderWriter())
 dmap.get_header_writable().set_resolution(11.5)
 imp_mdl=IMP.Model()
-rb_refiner=IMP.core.LeavesRefiner(IMP.atom.Hierarchy.get_traits())
+rb_refiner=IMP.core.RigidMembersRefiner()
 for mdl_fn in truncated_models_fn:
     print("====fitting model",mdl_fn)
     #load the template
     mh=IMP.atom.read_pdb(mdl_fn,imp_mdl)
     IMP.atom.add_radii(mh)
-    rb=IMP.atom.setup_as_rigid_body(mh)
+    rb=IMP.atom.create_rigid_body(mh)
     sols=IMP.multifit.pca_based_rigid_fitting(rb,rb_refiner,dmap,0.02)
     #refine the top fit
     IMP.core.transform(rb,sols.get_transformation(0))
@@ -69,8 +69,7 @@ for mdl_fn in truncated_models_fn:
                               sols.get_score(0))
     #write the fitted model
     IMP.core.transform(rb,refined_sols.get_transformation(0))
-    IMP.atom.write_pdb(IMP.atom.Hierarchy(rb),
-                       mdl_fn.split(".pdb")[0]+".fitted.pdb")
+    IMP.atom.write_pdb(mh, mdl_fn.split(".pdb")[0]+".fitted.pdb")
     IMP.core.transform(rb,refined_sols.get_transformation(0).get_inverse())
     IMP.core.transform(rb,sols.get_transformation(0).get_inverse())
     fitting_scores.append(1.-refined_sols.get_score(0))

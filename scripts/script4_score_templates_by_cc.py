@@ -27,7 +27,7 @@ dmap=IMP.em.read_map("output/groel_subunit_11.mrc",IMP.em.MRCReaderWriter())
 dmap.get_header_writable().set_resolution(10)
 #--- load IMP model
 mdl=IMP.Model()
-rb_refiner=IMP.core.LeavesRefiner(IMP.atom.Hierarchy.get_traits())
+rb_refiner=IMP.core.RigidMembersRefiner()
 template_fit_sols=[]
 best_fit=1.
 best_temp=[]
@@ -40,7 +40,7 @@ for i,t in enumerate(templates):
     mh=IMP.atom.read_pdb(templates_dir+t[0]+".pdb",mdl)
     #get the right chain
     mh_chain=IMP.atom.get_by_type(mh,IMP.atom.CHAIN_TYPE)[ord(t[1])-ord('A')]
-    rb=IMP.atom.setup_as_rigid_body(mh_chain)
+    rb=IMP.atom.create_rigid_body(mh_chain)
     #fit the template to the density map
     sols=IMP.multifit.pca_based_rigid_fitting(rb,rb_refiner,dmap,dens_threshold)
     IMP.core.transform(rb,sols.get_transformation(0))
